@@ -1,0 +1,22 @@
+{
+  "name": "school-portal-monolith",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace @school-portal/api\" \"npm run dev --workspace @school-portal/web\"",
+    "build": "npm run build --workspace @school-portal/api && npm run build --workspace @school-portal/web",
+    "lint": "npm run lint --workspace @school-portal/api && npm run lint --workspace @school-portal/web",
+    "prisma:generate": "prisma generate --schema prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema prisma/schema.prisma",
+    "prisma:seed": "ts-node prisma/seed.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "prisma": "^5.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
