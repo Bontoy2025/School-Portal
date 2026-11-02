@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Portal | Sign In & Sign Up</title>
+    <style>
+      :root {
+        --bg: #f4f7ff;
+        --card: #ffffff;
+        --primary: #2f6fed;
+        --primary-dark: #1d4fb7;
+        --secondary: #0ea5a4;
+        --danger: #ef4444;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --line: #e5e7eb;
+        --shadow: 0 18px 45px rgba(31, 41, 55, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #edf3ff 0%, #e7f9f7 100%);
+        color: var(--text);
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+      }
+
+      .container {
+        width: min(1100px, 100%);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .header {
+        padding: 30px 40px 12px;
+        text-align: center;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #e0ecff;
+        color: var(--primary-dark);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      h1 {
+        margin: 18px 0 8px;
+        font-size: clamp(2rem, 3vw, 3rem);
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .role-switch {
+        padding: 0 40px 16px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .role-btn {
+        border: 1px solid var(--line);
+        background: #f9fafb;
+        color: var(--text);
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 0.96rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .role-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        box-shadow: 0 12px 28px rgba(47, 111, 237, 0.25);
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 18px 40px 40px;
+      }
+
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 26px 22px;
+      }
+
+      .panel h2 {
+        margin: 0 0 6px;
+        font-size: 1.7rem;
+      }
+
+      .panel small {
+        display: block;
+        color: var(--muted);
+        margin-bottom: 18px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        outline: none;
+        font-size: 0.96rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background: #fff;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: rgba(47, 111, 237, 0.8);
+        box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.13);
+      }
+
+      .inline-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.92rem;
+        color: var(--muted);
+        margin: 14px 0 18px;
+      }
+
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary);
+      }
+
+      .btn {
+        width: 100%;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, var(--secondary) 0%, #0d9488 100%);
+        color: white;
+      }
+
+      .helper {
+        margin-top: 18px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .helper a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .status {
+        margin-top: 14px;
+        min-height: 24px;
+        text-align: center;
+        font-weight: 700;
+        color: var(--secondary);
+      }
+
+      @media (max-width: 760px) {
+        .content {
+          grid-template-columns: 1fr;
+        }
+
+        .header,
+        .role-switch,
+        .content {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .inline-fields {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="container">
+        <header class="header">
+          <span class="badge">School Portal</span>
+          <h1>Welcome Back</h1>
+          <p class="subtitle">Access your school community account securely.</p>
+        </header>
+
+        <div class="role-switch" aria-label="Choose user role">
+          <button class="role-btn active" type="button" data-role="Teacher">Teacher</button>
+          <button class="role-btn" type="button" data-role="Parents">Parents</button>
+          <button class="role-btn" type="button" data-role="Admin">Admin</button>
+        </div>
+
+        <main class="content">
+          <section class="panel">
+            <h2>Sign In</h2>
+            <small id="signin-label">Teacher portal access</small>
+            <form id="signin-form">
+              <div class="form-group">
+                <label for="signin-role">Role</label>
+                <select id="signin-role" name="signin-role">
+                  <option>Teacher</option>
+                  <option>Parents</option>
+                  <option>Admin</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="signin-email">Email Address</label>
+                <input id="signin-email" type="email" placeholder="teacher@school.edu" />
+              </div>
+
+              <div class="form-group">
+                <label for="signin-password">Password</label>
+                <input id="signin-password" type="password" placeholder="Enter your password" />
+              </div>
+
+              <div class="checkbox">
+                <input type="checkbox" id="remember-me" />
+                <label for="remember-me" style="margin: 0; font-weight: 500;">Keep me signed in</label>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Sign In</button>
+              <div class="status" id="signin-status"></div>
+            </form>
+          </section>
+
+          <section class="panel">
+            <h2>Create Account</h2>
+            <small id="signup-label">Teacher sign up form</small>
+            <form id="signup-form">
+              <div class="inline-fields">
+                <div class="form-group">
+                  <label for="signup-firstname">First Name</label>
+                  <input id="signup-firstname" type="text" placeholder="First name" />
+                </div>
+                <div class="form-group">
+                  <label for="signup-lastname">Last Name</label>
+                  <input id="signup-lastname" type="text" placeholder="Last name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-role">Role</label>
+                <select id="signup-role" name="signup-role">
+                  <option>Teacher</option>
+                  <option>Parents</option>
+                  <option>Admin</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <input id="signup-email" type="email" placeholder="name@example.com" />
+              </div>
+
+              <div class="form-group">
+                <label for="signup-phone">Phone Number</label>
+                <input id="signup-phone" type="tel" placeholder="(000) 000-0000" />
+              </div>
+
+              <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input id="signup-password" type="password" placeholder="Create password" />
+              </div>
+
+              <button class="btn btn-secondary" type="submit">Create Account</button>
+              <div class="status" id="signup-status"></div>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const roleButtons = document.querySelectorAll('.role-btn');
+      const signinRole = document.getElementById('signin-role');
+      const signupRole = document.getElementById('signup-role');
+      const signinLabel = document.getElementById('signin-label');
+      const signupLabel = document.getElementById('signup-label');
+
+      const roleData = {
+        Teacher: {
+          signIn: 'Teacher portal access',
+          signUp: 'Teacher sign up form',
+          email: 'teacher@school.edu',
+          placeholder: 'Teacher Name',
+        },
+        Parents: {
+          signIn: 'Parent portal access',
+          signUp: 'Parent sign up form',
+          email: 'parent@school.edu',
+          placeholder: 'Parent Name',
+        },
+        Admin: {
+          signIn: 'Admin portal access',
+          signUp: 'Admin sign up form',
+          email: 'admin@school.edu',
+          placeholder: 'Administrator Name',
+        }
+      };
+
+      function setRole(role) {
+        roleButtons.forEach((button) => {
+          button.classList.toggle('active', button.dataset.role === role);
+        });
+
+        signinRole.value = role;
+        signupRole.value = role;
+        signinLabel.textContent = roleData[role].signIn;
+        signupLabel.textContent = roleData[role].signUp;
+        document.getElementById('signin-email').placeholder = roleData[role].email;
+        document.getElementById('signup-email').placeholder = 'name@example.com';
+      }
+
+      roleButtons.forEach((button) => {
+        button.addEventListener('click', () => setRole(button.dataset.role));
+      });
+
+      document.getElementById('signin-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const role = signinRole.value;
+        document.getElementById('signin-status').textContent = `${role} sign in successful!`;
+      });
+
+      document.getElementById('signup-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const role = signupRole.value;
+        document.getElementById('signup-status').textContent = `${role} account created successfully!`;
+      });
+
+      setRole('Teacher');
+    </script>
+  </body>
+</html>
