@@ -1,7 +1,4 @@
-export const metadata = {
-  title: 'School Portal',
-  description: 'Modular monolith MVP',
-};
+import { parse } from 'path';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
