@@ -1,7 +1,17 @@
-"use client";
+import './globals.css';
+import { Providers } from './providers';
 
-import { AppQueryProvider } from '@/components/providers/query-provider';
+export const metadata = {
+  title: 'DepEd School Portal',
+  description: 'Role-based school portal for administrative and academic operations.',
+};
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <AppQueryProvider>{children}</AppQueryProvider>;
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-slate-100 text-slate-900 antialiased">
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
 }
